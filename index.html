@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 A Question for You...</title>
+    
+    <!-- Favicon - Heart Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💕</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music - Auto plays on interaction -->
+    <audio id="bg-music" loop>
+        <source src="asset/song.mp4" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Falling Cherry Blossoms Canvas -->
+    <canvas id="blossom-canvas"></canvas>
+
+    <!-- The Story Container -->
+    <div id="story-container">
+        <!-- Intro Screen (Start Journey) -->
+        <div class="card glass story-card active" id="story-0">
+            <div class="sparkle-container">
+                <span class="sparkle">✨</span>
+                <span class="sparkle">💫</span>
+                <span class="sparkle">✨</span>
+            </div>
+            <h1 class="heading fade-in">A Letter For You...</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s;">
+                Please turn up your volume, and take your time.
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 1s; margin-top: 2rem;">
+                <button class="btn btn-yes shimmer next-btn">Start Journey 💕</button>
+            </div>
+        </div>
+
+        <!-- Story 1 -->
+        <div class="card glass story-card" id="story-1">
+            <h1 class="heading poetic-text fade-in" style="font-size: 2.5rem; margin-bottom: 1.5rem;">I know you.</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                You're the eldest of two children.<br>
+                One part of you learned to carry the weight of the world,<br>
+                while another just wants a safe place to rest.
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 2s; margin-top: 2.5rem;">
+                <button class="btn btn-yes next-btn">Keep reading ✨</button>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="card glass story-card" id="story-2">
+            <h1 class="heading poetic-text fade-in" style="font-size: 2.5rem; margin-bottom: 1.5rem;">I know you.</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                You say you don't deserve love,<br>
+                but I see a heart that is so incredibly worthy of being held safely.
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 2s; margin-top: 2.5rem;">
+                <button class="btn btn-yes next-btn">Keep reading ✨</button>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="card glass story-card" id="story-3">
+            <h1 class="heading poetic-text fade-in" style="font-size: 2.5rem; margin-bottom: 1.5rem;">I know you.</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                You keep looking for someone who will look at everything you've done, everything you've achieved, and simply say,<br><br>
+                <span class="highlight poetic-text" style="font-size: 1.8rem; display: block; margin-top: 0.5rem;">"I'm proud of you."</span>
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 2.5s; margin-top: 2.5rem;">
+                <button class="btn btn-yes next-btn">Keep reading ✨</button>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="card glass story-card" id="story-4">
+            <h1 class="heading poetic-text fade-in" style="font-size: 2.5rem; margin-bottom: 1.5rem;">I know you.</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                You're strong. You're independent.<br>
+                You spend your days saving lives.<br><br>
+                But when it feels like the world is falling apart, or like you're completely on your own, remember—<br>
+                <span class="highlight" style="display: block; margin-top: 0.8rem;">I'll be the person willing to cross oceans just to reach you.</span>
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 3s; margin-top: 2.5rem;">
+                <button class="btn btn-yes next-btn">Keep reading ✨</button>
+            </div>
+        </div>
+
+        <!-- Story 5 -->
+        <div class="card glass story-card" id="story-5">
+            <h1 class="heading poetic-text fade-in" style="font-size: 2.5rem; margin-bottom: 1.5rem;">I know you.</h1>
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                I know you're carrying pain you rarely talk about.<br>
+                But being strong doesn't mean you have to carry everything alone.<br><br>
+                And whatever made you believe you deserve that pain—<br>
+                <span class="highlight poetic-text" style="font-size: 2rem; color: #D46A6A; display: block; margin-top: 0.5rem;">you don't.</span>
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 3s; margin-top: 2.5rem;">
+                <button class="btn btn-yes next-btn">Keep reading ✨</button>
+            </div>
+        </div>
+
+        <!-- Story 6 -->
+        <div class="card glass story-card" id="story-6">
+            <p class="body-text fade-in" style="animation-delay: 0.5s; font-size: 1.1rem; line-height: 1.8;">
+                I'm not moving on. I'll give you space and keep my distance for a while, but I'll be here, quietly hoping you find your way back.<br><br>
+                I made you a promise to love you always and forever, and that's not something I say lightly.<br><br>
+                I still believe our story isn't finished.<br>
+                <span class="highlight poetic-text" style="font-size: 2.2rem; color: #D46A6A; display: block; margin-top: 1rem;">I believe in us.</span>
+            </p>
+            <div class="buttons-container fade-in" style="animation-delay: 4s; margin-top: 2.5rem;">
+                <button class="btn btn-yes shimmer next-btn" id="finish-story-btn">Open The Card 💌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Proposal Card -->
+    <div class="card glass" id="proposal-card" style="display: none; opacity: 0; transform: scale(0.8);">
+        <div class="sparkle-container">
+            <span class="sparkle">✨</span>
+            <span class="sparkle">💫</span>
+            <span class="sparkle">✨</span>
+        </div>
+        
+        <h1 class="heading fade-in">Hypothesis: The Perfect Variable is You ♾️</h1>
+        
+        <div class="quote-block fade-in" style="animation-delay: 0.3s;">
+            <p class="poetic-text">
+                "Meeting you was fate, becoming your friend was a choice,<br>
+                but falling in love with you was beyond my control."
+            </p>
+        </div>
+        
+        <p class="body-text fade-in" style="animation-delay: 0.5s;">
+            Some people search their whole lives for what I found in you —
+            a love that feels like coming home, a smile that lights up my darkest days,
+            and a heart that beats in perfect sync with mine.
+            <br><br>
+            Every moment with you is a memory I treasure, and every tomorrow 
+            feels brighter because I know you'll be in it.
+        </p>
+        
+        <p class="proposal-question fade-in pulse-glow" style="animation-delay: 0.8s;">
+            Will you be my Valentine? 💕
+        </p>
+
+        <div class="image-row">
+            <div class="circle-frame slide-in float-animation" style="animation-delay: 0.2s;">
+                <img src="asset/me.png" alt="Me">
+                <div class="frame-label">Him 👨‍💻</div>
+            </div>
+            <div class="circle-frame featured slide-in float-animation" style="animation-delay: 0.4s;">
+                <img src="asset/pets.png" alt="Pets">
+                <div class="badge">Co-parents Approved 🐾</div>
+            </div>
+            <div class="circle-frame slide-in float-animation" style="animation-delay: 0.6s;">
+                <img src="asset/her.png" alt="Her">
+                <div class="frame-label">Her 👩‍🔬</div>
+            </div>
+        </div>
+
+        <div class="buttons-container fade-in" style="animation-delay: 1s;">
+            <button id="yes-btn" class="btn btn-yes shimmer">Yes, Absolutely! 💖</button>
+            <div class="btn-no-wrapper">
+                <button id="no-btn" class="btn btn-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Invitation Card (Hidden Initially) -->
+    <div class="card polaroid hidden" id="invitation-card">
+        <div class="photo-frame">
+            <img src="asset/us.png" alt="Us Together">
+        </div>
+        <div class="polaroid-text">
+            <h2 class="handwritten">It's a Date! ❤️</h2>
+            <div class="metadata">
+                <p>August 26th | Dinner & Stargazing</p>
+                <p>Officially Approved by Shiro 🐶 & Milo 🐱</p>
+            </div>
+            <button id="music-btn" class="btn-icon" title="Play Music">
+                🎵 Play Music
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

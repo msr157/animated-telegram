@@ -1,0 +1,862 @@
+:root {
+    --blush-pink: #FFD1DC;
+    --soft-cream: #FFFDD0;
+    --champagne-gold: #F7E7CE;
+    --text-dark: #4A4A4A;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
+    /* Soft gradient background to support the Ghibli feel */
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    /* Or a more romantic base before the canvas loads */
+    background-color: var(--soft-cream);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    padding: 1rem 0;
+    cursor: url('asset/cursor.svg') 6 6, auto;
+}
+
+/* Enforce heart cursor on ALL elements including buttons */
+html,
+body,
+*,
+*::before,
+*::after {
+    cursor: url('asset/cursor.svg') 6 6, auto !important;
+}
+
+/* Background Canvas */
+#blossom-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Glassmorphism Card */
+.card {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 650px;
+    padding: 1.2rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+/* Typography */
+.heading {
+    font-family: 'Sacramento', cursive;
+    font-size: 2rem;
+    color: #D46A6A;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.body-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.highlight {
+    font-weight: 600;
+    color: #C95A75;
+}
+
+/* Layout & Images */
+.image-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    margin-top: 0.5rem;
+    position: relative;
+    padding: 10px 0 28px 0;
+}
+
+.circle-frame {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: visible;
+    border: 2px solid white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    position: relative;
+    background: #f5f5f5;
+}
+
+.circle-frame.featured {
+    width: 85px;
+    height: 85px;
+    border: 3px solid var(--champagne-gold);
+    position: relative;
+    z-index: 2;
+}
+
+.circle-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    /* Ensure image is also circular */
+    display: block;
+    /* Remove any inline spacing */
+}
+
+.badge {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--champagne-gold);
+    color: #5d4037;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+.slide-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Floating Animation for Images */
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+.slide-in.float-animation {
+    animation: fadeInUp 0.8s forwards, float 3s ease-in-out 0.8s infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Sparkle Container */
+.sparkle-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.sparkle {
+    font-size: 1.2rem;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.sparkle:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.sparkle:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+/* Quote Block */
+.quote-block {
+    background: linear-gradient(135deg, rgba(255, 209, 220, 0.3), rgba(247, 231, 206, 0.3));
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--champagne-gold);
+}
+
+.poetic-text {
+    font-family: 'Sacramento', cursive;
+    font-size: 1.1rem;
+    color: #A0616A;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Proposal Question with Pulsing Glow */
+.proposal-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #D46A6A;
+    margin-bottom: 0.8rem;
+}
+
+.pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px rgba(212, 106, 106, 0.3);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(212, 106, 106, 0.6), 0 0 30px rgba(255, 209, 220, 0.4);
+    }
+}
+
+/* Frame Labels */
+.frame-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #888;
+    white-space: nowrap;
+}
+
+/* Shimmer Effect on Yes Button */
+.shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Yes Button Hover Enhancement */
+.btn-yes:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+}
+
+/* Buttons */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+    height: 60px;
+    /* Fixed height to prevent layout shifts */
+    align-items: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    /* cursor: pointer; */
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+    /* Prevent text wrapping */
+}
+
+.btn-yes {
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    z-index: 2;
+    /* Ensure it stays above if needed */
+}
+
+/* Fix for No button moving the Yes button: Absolute positioning context */
+.btn-no-wrapper {
+    position: relative;
+    min-width: 150px;
+    width: auto;
+    height: 50px;
+    overflow: visible;
+    /* Allow button to grow beyond wrapper */
+}
+
+.btn-no {
+    background: #e0e0e0;
+    color: #777;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    width: auto;
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+/* Invitation Card (Polaroid Style) */
+.polaroid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-2deg) scale(0.9);
+    background: white;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    display: none;
+    max-width: 500px;
+    z-index: 100;
+    /* Ensure it appears above the canvas and proposal card */
+    border-radius: 10px;
+}
+
+.polaroid.visible {
+    display: block;
+    animation: revealCard 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes revealCard {
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+    }
+}
+
+.photo-frame {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Square crop for Polaroid feel */
+    background: #f0f0f0;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.polaroid-text {
+    text-align: center;
+}
+
+.handwritten {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.metadata {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.btn-icon {
+    background: transparent;
+    border: 2px solid var(--blush-pink);
+    color: #D46A6A;
+    padding: 8px 16px;
+    border-radius: 20px;
+    /* cursor: pointer; */
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-icon:hover {
+    background: var(--blush-pink);
+    color: white;
+}
+
+/* Story Sequence Styles */
+#story-container {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    max-width: 650px;
+}
+
+.story-card {
+    grid-area: 1 / 1;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    transform: translateY(20px);
+    z-index: 5;
+}
+
+.story-card.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    z-index: 10;
+}
+
+.story-card.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - All Device Sizes
+   ============================================ */
+
+/* Extra Large Screens - TV & 4K Monitors (1920px+) */
+@media (min-width: 1920px) {
+    .card {
+        max-width: 900px;
+        padding: 4rem;
+    }
+
+    .heading {
+        font-size: 4rem;
+    }
+
+    .body-text {
+        font-size: 1.3rem;
+    }
+
+    .poetic-text {
+        font-size: 1.8rem;
+    }
+
+    .circle-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+    .circle-frame.featured {
+        width: 160px;
+        height: 160px;
+    }
+
+    .proposal-question {
+        font-size: 1.8rem;
+    }
+
+    .polaroid {
+        max-width: 600px;
+    }
+}
+
+/* Large Laptops & Monitors (1200px - 1919px) */
+@media (min-width: 1200px) and (max-width: 1919px) {
+    .card {
+        max-width: 750px;
+        padding: 3rem;
+    }
+}
+
+/* Standard Laptops 14-15.6" (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .card {
+        max-width: 680px;
+        padding: 2.5rem;
+    }
+
+    .heading {
+        font-size: 2.8rem;
+    }
+}
+
+/* Tablets - iPad, Galaxy Tab (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .card {
+        max-width: 90%;
+        padding: 2rem;
+    }
+
+    .heading {
+        font-size: 2.5rem;
+    }
+
+    .body-text {
+        font-size: 1rem;
+    }
+
+    .poetic-text {
+        font-size: 1.2rem;
+    }
+
+    .image-row {
+        gap: 1.5rem;
+    }
+
+    .circle-frame {
+        width: 90px;
+        height: 90px;
+    }
+
+    .circle-frame.featured {
+        width: 110px;
+        height: 110px;
+    }
+
+    .polaroid {
+        max-width: 400px;
+    }
+}
+
+/* Large Phones - iPhone Pro Max, S24 Ultra (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    body {
+        padding: 1rem;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .card {
+        max-width: 95%;
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .heading {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    .quote-block {
+        padding: 0.8rem 1rem;
+    }
+
+    .poetic-text {
+        font-size: 1.1rem;
+    }
+
+    .body-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .proposal-question {
+        font-size: 1.2rem;
+    }
+
+    .image-row {
+        gap: 1rem;
+        flex-wrap: nowrap;
+        padding: 15px 0 35px 0;
+    }
+
+    .circle-frame {
+        width: 80px;
+        height: 80px;
+    }
+
+    .circle-frame.featured {
+        width: 95px;
+        height: 95px;
+    }
+
+    .frame-label {
+        font-size: 0.65rem;
+        bottom: -22px;
+    }
+
+    .badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .btn-no-wrapper {
+        width: 100%;
+        max-width: 250px;
+        height: 45px;
+    }
+
+    .polaroid {
+        max-width: 90%;
+        padding: 1rem 1rem 2rem 1rem;
+    }
+
+    .handwritten {
+        font-size: 2rem;
+    }
+}
+
+/* Small Phones - iPhone 16 Pro, S24 (max-width: 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    .card {
+        max-width: 100%;
+        padding: 1.2rem;
+        margin: 0.5rem 0;
+        border-radius: 15px;
+    }
+
+    .sparkle-container {
+        top: 5px;
+    }
+
+    .sparkle {
+        font-size: 1rem;
+    }
+
+    .heading {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+    }
+
+    .quote-block {
+        padding: 0.6rem 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .poetic-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .body-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .proposal-question {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .image-row {
+        gap: 0.8rem;
+        padding: 10px 0 30px 0;
+        margin-bottom: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .circle-frame {
+        width: 70px;
+        height: 70px;
+        border-width: 2px;
+    }
+
+    .circle-frame.featured {
+        width: 85px;
+        height: 85px;
+        border-width: 3px;
+    }
+
+    .frame-label {
+        font-size: 0.6rem;
+        bottom: -20px;
+    }
+
+    .badge {
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        bottom: -8px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        height: auto;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 220px;
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+
+    .btn-no-wrapper {
+        width: 100%;
+        max-width: 220px;
+        height: 42px;
+    }
+
+    /* Invitation Card Mobile */
+    .polaroid {
+        max-width: 95%;
+        padding: 0.8rem 0.8rem 1.5rem 0.8rem;
+        border-radius: 8px;
+    }
+
+    .photo-frame {
+        margin-bottom: 1rem;
+    }
+
+    .handwritten {
+        font-size: 1.8rem;
+    }
+
+    .metadata {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .metadata p {
+        margin-bottom: 0.3rem;
+    }
+
+    .btn-icon {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Very Small Phones (max-width: 360px) */
+@media (max-width: 360px) {
+    .heading {
+        font-size: 1.4rem;
+    }
+
+    .circle-frame {
+        width: 60px;
+        height: 60px;
+    }
+
+    .circle-frame.featured {
+        width: 75px;
+        height: 75px;
+    }
+
+    .image-row {
+        gap: 0.6rem;
+    }
+
+    .poetic-text {
+        font-size: 0.85rem;
+    }
+
+    .body-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Landscape Mode for Phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .card {
+        margin: 1rem auto;
+    }
+
+    .image-row {
+        margin-bottom: 1rem;
+    }
+}
