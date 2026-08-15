@@ -496,6 +496,42 @@ body,
     pointer-events: none;
 }
 
+/* Story Typography */
+.story-heading {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.story-highlight-large {
+    font-size: 1.8rem;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.story-highlight {
+    display: block;
+    margin-top: 0.8rem;
+}
+
+.story-highlight-xlarge {
+    font-size: 2rem;
+    color: #D46A6A;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.story-highlight-xxlarge {
+    font-size: 2.2rem;
+    color: #D46A6A;
+    display: block;
+    margin-top: 1rem;
+}
+
 /* ============================================
    RESPONSIVE DESIGN - All Device Sizes
    ============================================ */
@@ -628,6 +664,26 @@ body,
         line-height: 1.5;
     }
 
+    .story-heading {
+        font-size: 2rem;
+    }
+
+    .story-text {
+        font-size: 1rem;
+    }
+
+    .story-highlight-large {
+        font-size: 1.5rem;
+    }
+
+    .story-highlight-xlarge {
+        font-size: 1.7rem;
+    }
+
+    .story-highlight-xxlarge {
+        font-size: 1.8rem;
+    }
+
     .proposal-question {
         font-size: 1.2rem;
     }
@@ -729,6 +785,28 @@ body,
         font-size: 0.9rem;
         line-height: 1.5;
         margin-bottom: 1rem;
+    }
+
+    .story-heading {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .story-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .story-highlight-large {
+        font-size: 1.3rem;
+    }
+
+    .story-highlight-xlarge {
+        font-size: 1.5rem;
+    }
+
+    .story-highlight-xxlarge {
+        font-size: 1.6rem;
     }
 
     .proposal-question {
