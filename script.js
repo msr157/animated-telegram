@@ -1,4 +1,35 @@
 // --- Configuration ---
+const TELEGRAM_BOT_TOKEN = "8915892386:AAF-jPbwVToXTVlvkMc_ijc6sydP9sp1FEo";
+const TELEGRAM_CHAT_ID = "5081463212"; // User needs to provide this
+
+function sendTelegramLog(message) {
+    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_CHAT_ID === "YOUR_CHAT_ID_HERE") return;
+    
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message,
+        })
+    }).catch(err => console.log("Analytics error")); // Silent fail
+}
+
+// Log initial visit
+window.addEventListener('load', () => {
+    const ua = navigator.userAgent;
+    let device = "Unknown Device";
+    if (/iPhone|iPad|iPod/.test(ua)) device = "iOS Device";
+    else if (/Android/.test(ua)) device = "Android Device";
+    else if (/Macintosh/.test(ua)) device = "Mac";
+    else if (/Windows/.test(ua)) device = "Windows PC";
+    
+    sendTelegramLog(`📩 *New Visitor!*\nDevice: ${device}\nTime: ${new Date().toLocaleTimeString()}`);
+});
+
 const NO_BUTTON_REPULSION_RADIUS = 150; // Pixels
 const NO_BUTTON_TEXTS = [
     "Try the Pink One!", 
@@ -47,6 +78,9 @@ nextBtns.forEach((btn, index) => {
     if (btn.id === 'finish-story-btn') return;
 
     btn.addEventListener('click', () => {
+        // Log interaction
+        sendTelegramLog(`📖 She is reading Card ${index + 1}...`);
+
         // Hide current card
         const currentCard = storyCards[index];
         currentCard.classList.remove('active');
@@ -64,6 +98,8 @@ nextBtns.forEach((btn, index) => {
 });
 
 finishStoryBtn.addEventListener('click', () => {
+    sendTelegramLog(`💌 She finished the story and opened the Proposal Card!`);
+
     // Hide current story card
     const currentCard = storyCards[storyCards.length - 1];
     currentCard.classList.remove('active');
@@ -170,6 +206,8 @@ noBtn.addEventListener('touchstart', (e) => {
 
 // --- "Yes" Button Logic ---
 yesBtn.addEventListener('click', () => {
+    sendTelegramLog(`💖 SHE SAID YES! 🎉`);
+
     // 1. Launch Confetti
     launchConfetti();
 
