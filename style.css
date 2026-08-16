@@ -498,17 +498,17 @@ body,
 
 /* Story Typography */
 .story-heading {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.5rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 .story-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.15rem !important;
+    line-height: 1.9 !important;
 }
 
 .story-highlight-large {
-    font-size: 1.8rem;
+    font-size: 1.8rem !important;
     display: block;
     margin-top: 0.5rem;
 }
@@ -516,20 +516,33 @@ body,
 .story-highlight {
     display: block;
     margin-top: 0.8rem;
+    font-size: inherit !important;
 }
 
 .story-highlight-xlarge {
-    font-size: 2rem;
+    font-size: 2rem !important;
     color: #D46A6A;
     display: block;
     margin-top: 0.5rem;
 }
 
 .story-highlight-xxlarge {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
     color: #D46A6A;
     display: block;
     margin-top: 1rem;
+}
+
+/* Story cards should fill viewport on mobile */
+#story-container {
+    min-height: 60vh;
+}
+
+.story-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1.5rem;
 }
 
 /* ============================================
@@ -665,23 +678,24 @@ body,
     }
 
     .story-heading {
-        font-size: 2rem;
+        font-size: 2.2rem !important;
     }
 
     .story-text {
-        font-size: 1rem;
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
     }
 
     .story-highlight-large {
-        font-size: 1.5rem;
+        font-size: 1.6rem !important;
     }
 
     .story-highlight-xlarge {
-        font-size: 1.7rem;
+        font-size: 1.8rem !important;
     }
 
     .story-highlight-xxlarge {
-        font-size: 1.8rem;
+        font-size: 1.9rem !important;
     }
 
     .proposal-question {
@@ -788,25 +802,30 @@ body,
     }
 
     .story-heading {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
+        font-size: 2rem !important;
+        margin-bottom: 1rem !important;
     }
 
     .story-text {
-        font-size: 0.95rem;
-        line-height: 1.5;
+        font-size: 1.05rem !important;
+        line-height: 1.7 !important;
     }
 
     .story-highlight-large {
-        font-size: 1.3rem;
+        font-size: 1.5rem !important;
     }
 
     .story-highlight-xlarge {
-        font-size: 1.5rem;
+        font-size: 1.6rem !important;
     }
 
     .story-highlight-xxlarge {
-        font-size: 1.6rem;
+        font-size: 1.7rem !important;
+    }
+
+    .story-card {
+        padding: 2rem 1.2rem;
+        min-height: 50vh;
     }
 
     .proposal-question {
@@ -920,6 +939,27 @@ body,
 
     .body-text {
         font-size: 0.85rem;
+    }
+
+    .story-heading {
+        font-size: 1.8rem !important;
+    }
+
+    .story-text {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .story-highlight-large {
+        font-size: 1.3rem !important;
+    }
+
+    .story-highlight-xlarge {
+        font-size: 1.4rem !important;
+    }
+
+    .story-highlight-xxlarge {
+        font-size: 1.5rem !important;
     }
 }
 

